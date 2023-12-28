@@ -15,7 +15,7 @@ There is no non-standard hardware required for this project.
 
 To install the software, clone the repository and run the following command in the terminal:
 ```
-git clone https://github.com/bianlab/mmw.git
+git clone https://github.com/bianlab/MMW.git
 ```
 
 ### 2.2 Install the requirements 
