@@ -14,8 +14,8 @@ from torchvision import transforms
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_folder', default='./ExemplarData/')
-parser.add_argument('--data_name', default='back_L_metal2_Ratio_0.25')
-parser.add_argument('--save_intermediate', default=True, type=bool)
+parser.add_argument('--data_name', default='data_0.25')
+parser.add_argument('--save_intermediate', default=False, type=bool)
 parser.add_argument('--use_init', default=True, type=bool)
 parser.add_argument('--f_start', default=32e9, type=float, help='start freq')
 parser.add_argument('--f_stop', default=36.98e9, type=float, help='stop freq')
@@ -133,7 +133,15 @@ for epoch in range(opt.n_iter+1):
             abs_output = torch.sqrt(output_real ** 2 + output_imag ** 2)
             front_view = torch.max(abs_output, dim=4).values
             front_view = front_view/torch.max(front_view)
-            save_image(front_view, "./Result/{}_iteration{}.png".format(opt.data_name, epoch))
+            save_image(front_view, "./Result/{}_iteration{}.jpg".format(opt.data_name, epoch))
+        if epoch == opt.n_iter:
+            proj_db = 20*torch.log10(front_view + 1e-10)
+            proj_db = torch.roll(torch.flip(proj_db, [2]), -16, 2)
+            proj_db = transforms.functional.resize(proj_db, (826, 512))
+            proj_db[proj_db < -20] = -20
+            proj_db += 20
+            proj_db /= 20
+            save_image(proj_db[0], "./Result/{}_to_detection.jpg".format(opt.data_name))
 
 mat = {'real':output_real.detach().clone().cpu().numpy()[0, 0],
         'imag':output_imag.detach().clone().cpu().numpy()[0, 0]}
