@@ -34,13 +34,12 @@ pip install tqdm scipy
 We have provided some test cases in the `Reconstruction/ExemplarData` folder. You can run the following command in the terminal:
 ```
 cd ./Reconstruction
-python Main.py --data_folder ExemplarData/ --data_name back_L_metal2_Ratio_0.25 --n_iter 1000 --use_init True --save_intermediate True
+python Main.py --data_folder ExemplarData/ --data_name data_0.25 --n_iter 1000 --use_init True
 ```
 The reconstructed 3D data (.mat) is in the `Reconstruction/Result` folder.
-If you set `save_intermediate=True`, the software will save the 2D maximum projection (.png) of reconstruction per 100 iterations.
 
 ### 3.2 Concealed target detection
-We have provided some test cases in the `Detection/image/0.1` and `Detection/image/0.25` folders corresponding to 10\% sampling ratio reconstructions and 25\% sampling ratio reconstructions.
+We have provided some test cases in the `Detection/images/0.1` and `Detection/images/0.25` folders corresponding to 10\% sampling ratio reconstructions and 25\% sampling ratio reconstructions.
 There are two detection networks in the `Detection/models` folder, one for 10\% sampling ratio, and the other for 25\% sampling ratio. Make sure you have yolov8 package or run the command:
 ```
 pip install ultralytics
@@ -51,7 +50,7 @@ cd ./Detection
 yolo predict imgsz=640 model=models/0.1.pt source=images/0.1 name=0.1 show_conf=False iou=0.5
 yolo predict imgsz=640 model=models/0.25.pt source=images/0.25 name=0.25 show_conf=False iou=0.5
 ```
-The detection image (.jpg) is in the `Detection/runs/detect/0.1`  or `Detection/runs/detect/0.25` folder.
+The detection images are in the `Detection/runs/detect/0.1`  or `Detection/runs/detect/0.25` folder.
 
 
 ## 4. Instructions for use
@@ -68,10 +67,10 @@ We have provided the sparse pattern (.mat) in the `Mask` folder. You can make yo
 
 You can run the following command in the terminal:
 ```
-python Main.py --data_folder your_folder --data_name you_own_data --n_iter 1000 --use_init True --save_intermediate True
+python Main.py --data_folder your_folder --data_name you_own_data --n_iter iteration_number --use_init True
 ```
 ### 4.1 How to run the detection code on your data
-Put your images in the `Detection/image/0.1` or `Detection/image/0.25` folders. Then run the following command in the terminal:
+Put your images in the `Detection/images/0.1` or `Detection/images/0.25` folders. Then run the following command in the terminal:
 ```
 yolo predict imgsz=640 model=models/0.1.pt source=images/0.1 name=0.1 show_conf=False iou=0.5
 yolo predict imgsz=640 model=models/0.25.pt source=images/0.25 name=0.25 show_conf=False iou=0.5
