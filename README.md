@@ -1,4 +1,5 @@
 # Towards Large-scale Single-shot Millimeter-wave Imaging for Low-cost Security Inspection
+[![DOI](https://zenodo.org/badge/736483770.svg)](https://zenodo.org/doi/10.5281/zenodo.11091264)
 
 ## 1. System requirements
 ### 1.1 All software dependencies and operating systems
